@@ -23,7 +23,7 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
+  border-bottom: 2px solid #0000FF;
 }
 
 .header .container {
@@ -34,7 +34,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: #0000FF;
 }
 
 .agora {
@@ -47,7 +47,7 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #e3b062;
+  color: #0000FF;
 }
 
 .titulo {
@@ -81,6 +81,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 36px;
+  text-align: center;
 }
 
 .banner .container span {
@@ -230,7 +231,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: palevioletred;
+  color: #1E90FF;
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
@@ -255,7 +256,7 @@ body {
 }
 
 .formulario input {
-  border: 2px solid #32b9cd;
+  border: 2px solid #4682B4;
   text-align: center;
   border-radius: 10px;
   margin: 0;
@@ -286,7 +287,7 @@ body {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #ED145B;
+  background-color: #0000CD;
   width: 120px;
   height: 30px;
   align-self: center;
