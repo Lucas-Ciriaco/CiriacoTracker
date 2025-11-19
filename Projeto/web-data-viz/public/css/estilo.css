@@ -20,11 +20,15 @@ body {
   width: 80%;
   margin: auto;
 }
-
 .header {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1vw);
   height: var(--tamanho-header);
-  border-bottom: 2px solid #1E90FF;
+  border-bottom: 2px solid #000000;
 }
+
 
 .header .container {
   justify-content: space-between;
@@ -34,7 +38,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #1E90FF;
+  color: #FF4655;
 }
 
 .agora {
@@ -47,11 +51,11 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #1E90FF;
+  color: #000;
 }
 
 .titulo {
-  color: #32b9cd;
+  color: #FF4655;
   width: 10;
   font-weight: 100;
 }
@@ -65,7 +69,7 @@ body {
 .banner {
   height: var(--tamanho-banner);
   color: white;
-  background-image: url('../assets/imgs/personagens.webp');
+  background-image: url('../assets/imgs/valorant.jpg');
   background-size: cover;
 }
 
@@ -208,7 +212,7 @@ body {
 
 .img3 img {
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
     height: auto;
 }
 
@@ -234,8 +238,9 @@ body {
 /* LOGIN */
 
 .login {
-  height: var(--tamanho-login);
+  height: 100vh;
   background-size: cover;
+  background-image: url('../assets/imgs/lotusValorant.webp') ;
 }
 
 .login .container {
@@ -244,17 +249,19 @@ body {
   height: 100%;
 }
 
+
 .card {
-  width: 50%;
-  background-color: #e5e5e5;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  color: #1E90FF;
-  flex-direction: column;
-  height: fit-content;
-  padding: 20px 0;
+ width: 450px;
+    max-width: 90%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: rgb(255, 255, 255);
+    flex-direction: column;
+    height: fit-content;
+    padding: 30px 20px;
 }
 
 .card h2 {
@@ -276,14 +283,14 @@ body {
 }
 
 .formulario input {
-  border: 2px solid #4682B4;
+  border: 2px solid #4F4F4F;
   text-align: center;
   border-radius: 10px;
   margin: 0;
 }
 
 .formulario select {
-  border: 2px solid #32b9cd;
+  border: 2px solid #FF4655;
   background-color: white;
   color: gray;
   height: 36px;
@@ -307,7 +314,7 @@ body {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #0000CD;
+  background-color: #FF4655;
   width: 120px;
   height: 30px;
   align-self: center;
