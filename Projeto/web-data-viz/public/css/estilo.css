@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #A9A9A9;
+  background-color: 	#D3D3D3;
 }
 
 :root {
@@ -54,7 +54,6 @@ body {
   color: #32b9cd;
   width: 10;
   font-weight: 100;
-
 }
 
 .header h1 {
@@ -91,7 +90,7 @@ body {
 /* MISSÃO VISÃO VALORES */
 
 .social {
-  background-color: #A9A9A9;
+  background-color: 	#D3D3D3;
 
 }
 
@@ -120,10 +119,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 60px;
+  margin-left: 100px;
 }
-.container2,
-.container3 {
+.container2 {
     margin: 4rem auto;
     padding: 2.5rem 4vw;
     max-width: var(--max-content-width);
@@ -133,8 +131,20 @@ body {
     justify-content: space-around;
     align-items: center;
     gap: 5vw;
+    margin-right: 150px;
 }
-
+.container3 {
+    margin: 4rem auto;
+    padding: 2.5rem 4vw;
+    max-width: var(--max-content-width);
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 5vw;
+    margin-left: 200px;
+}
 .sobre-valorant,
 .sobre-tracker {
     width: 50%;
@@ -144,6 +154,7 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+
 
 .sobre-valorant h2,
 .sobre-tracker h2 {
@@ -168,7 +179,16 @@ body {
     text-align: left;
 }
 
-.container2 .img2,
+.container2 .img2 {
+    width: 40%;
+    min-width: 200px;
+    flex-grow: 1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
 .container3 .img3 {
     width: 40%;
     min-width: 200px;
@@ -177,6 +197,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row-reverse;
 }
 
 .img2 img {
