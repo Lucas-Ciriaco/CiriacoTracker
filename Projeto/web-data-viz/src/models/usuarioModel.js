@@ -1,34 +1,27 @@
-var database = require("../database/config")
+var database = require("../database/config");
 
 function autenticar(email, senha) {
-    console.log("Iniciando autenticação:", email, senha);
-
-    var instrucaoSql = `
+    var instrucao = `
         SELECT 
             idUsuario AS id,
             nickname AS nome,
             email,
-            ranking,
-            senha
-        FROM usuario 
-        WHERE email = '${email}' 
+            ranking
+        FROM usuario
+        WHERE email = '${email}'
         AND senha = '${senha}';
     `;
-
-    console.log("Executando SQL:\n", instrucaoSql);
-    return database.executar(instrucaoSql);
+    console.log("Executando SQL: \n", instrucao);
+    return database.executar(instrucao);
 }
 
-function cadastrar(nome, email, senha, rank) {
-    console.log("Iniciando cadastro:", nome, email, senha, rank);
-
-    var instrucaoSql = `
-        INSERT INTO usuario (nickname, email, ranking, senha) 
-        VALUES ('${nome}', '${email}', '${rank}', '${senha}');
+function cadastrar(nome, email, ranking, senha) {
+    var instrucao = `
+        INSERT INTO usuario (nickname, email, ranking, senha)
+        VALUES ('${nome}', '${email}', '${ranking}', '${senha}');
     `;
-
-    console.log("Executando SQL:\n", instrucaoSql);
-    return database.executar(instrucaoSql);
+    console.log("Executando SQL: \n", instrucao);
+    return database.executar(instrucao);
 }
 
 module.exports = {
