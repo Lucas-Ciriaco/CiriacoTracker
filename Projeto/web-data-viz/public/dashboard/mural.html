@@ -6,29 +6,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CiriacoTracker | Avisos</title>
+
+    <title>CiriacoTracker | Questionário</title>
 
     <link rel="stylesheet" href="./../css/dashboards.css" />
     <link rel="stylesheet" href="./../css/estilo.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet" />
+    <script src="../js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao(), atualizarFeed()" style="background-color: #161618;">
+<body onload="validarSessao()" style="background-color: #161618;">
 
     <div class="janela">
         <div class="header-left">
-            <h1><img src="../assets/imgs/logoPrincipal.png" width="250" alt="Logo CiriacoTracker" /></h1>
+            <h1><img src="../assets/imgs/logoPrincipal.png" width="250" /></h1>
 
             <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
+                <a href="./dashboard.html"><h3>Gráficos</h3></a>
             </div>
 
             <div class="btn-nav">
@@ -46,7 +40,7 @@
                     <h1 class="formulario__titulo">Questionário das Partidas</h1>
 
                     <div class="div-form">
-                        <form id="form_questionario" method="post" onsubmit="return enviarQuestionario()" class="formulario">
+                        <form id="form_questionario" onsubmit="return enviarQuestionario()" class="formulario">
 
                             <label class="tipo_campo" for="numeroPartida">Número da Partida:</label>
                             <input type="number" name="numeroPartida" id="numeroPartida" min="1" required />
@@ -54,24 +48,24 @@
                             <label class="tipo_campo" for="dataPartida">Data da Partida:</label>
                             <input type="date" name="dataPartida" id="dataPartida" required />
 
-                            <label class="tipo_campo" for="abates">Quantidade de Abates:</label>
+                            <label class="tipo_campo" for="abates">Abates:</label>
                             <input type="number" name="abates" id="abates" min="0" required />
 
-                            <label class="tipo_campo" for="mortes">Quantidade de Mortes:</label>
+                            <label class="tipo_campo" for="mortes">Mortes:</label>
                             <input type="number" name="mortes" id="mortes" min="0" required />
 
                             <label class="tipo_campo" for="assistencias">Assistências:</label>
                             <input type="number" name="assistencias" id="assistencias" min="0" required />
 
-                            <label class="tipo_campo" for="resultado">Resultado da Partida:</label>
+                            <label class="tipo_campo" for="resultado">Resultado:</label>
                             <select name="resultado" id="resultado" required>
                                 <option value="">Selecione...</option>
-                                <option value="vitoria">Vitória</option>
-                                <option value="derrota">Derrota</option>
+                                <option value="1">Vitória</option>
+                                <option value="0">Derrota</option>
                             </select>
 
-                            <label class="tipo_campo" for="comentarios">Comentários adicionais:</label>
-                            <textarea name="comentarios" id="comentarios" maxlength="300" rows="4" placeholder="Opcional"></textarea>
+                            <label class="tipo_campo" for="comentarios">Comentários (opcional):</label>
+                            <textarea name="comentarios" id="comentarios" maxlength="300" rows="4"></textarea>
 
                             <button type="submit" class="btn">Enviar Questionário</button>
                         </form>
@@ -86,159 +80,36 @@
 
 </html>
 
-
-</html>
-
 <script>
+function enviarQuestionario() {
+    const idUsuario = sessionStorage.ID_USUARIO;
 
-    const b_usuario = document.getElementById("b_usuario");
-    if (b_usuario && sessionStorage.NOME_USUARIO) {
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    }
-
-    const form_postagem = document.getElementById("form_postagem");
-
-    const limparFormulario = () => {
-        if (form_postagem) form_postagem.reset();
+    const dados = {
+        numeroPartida: numeroPartida.value,
+        dataPartida: dataPartida.value,
+        abates: abates.value,
+        mortes: mortes.value,
+        assistencias: assistencias.value,
+        vitoria: resultado.value,
+        comentarios: comentarios.value
     };
 
-    const publicar = () => {
-        if (!form_postagem) return false;
+    console.log("Enviando dados:", dados);
 
-        const idUsuario = sessionStorage.ID_USUARIO;
-
-        const corpo = {
-            titulo: form_postagem.titulo.value,
-            descricao: form_postagem.descricao.value
-        };
-
-        fetch(`/avisos/publicar/${idUsuario}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        })
-            .then(resposta => {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    alert(`Post realizado com sucesso pelo usuario de ID: ${idUsuario}!`);
-                    limparFormulario();
-                    finalizarAguardar?.();
-                    window.location.href = "/dashboard/mural.html";
-                } else if (resposta.status === 404) {
-                    alert("Deu 404!");
-                } else {
-                    throw new Error(`Houve um erro ao tentar realizar a postagem! Código da resposta: ${resposta.status}`);
-                }
-            })
-            .catch(erro => {
-                console.error(`#ERRO: ${erro}`);
-                finalizarAguardar?.();
-            });
-
-        return false;
-    };
-
-    const editar = (idAviso) => {
-        sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
-        console.log("cliquei em editar - " + idAviso);
-        alert(`Você será redirecionado à página de edição do aviso de id número: ${idAviso}`);
-        window.location.href = "/dashboard/edicao-aviso.html";
-    };
-
-    const deletar = (idAviso) => {
-        console.log("Criar função de apagar post escolhido - ID " + idAviso);
-        fetch(`/avisos/deletar/${idAviso}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(resposta => {
-                if (resposta.ok) {
-                    alert(`Post deletado com sucesso pelo usuario de email: ${sessionStorage.EMAIL_USUARIO}!`);
-                    window.location.href = "/dashboard/mural.html";
-                } else if (resposta.status === 404) {
-                    alert("Deu 404!");
-                } else {
-                    throw new Error(`Houve um erro ao tentar deletar o post! Código da resposta: ${resposta.status}`);
-                }
-            })
-            .catch(erro => {
-                console.error(`#ERRO: ${erro}`);
-            });
-    };
-
-    const atualizarFeed = () => {
-        fetch("/avisos/listar")
-            .then(resposta => {
-                if (resposta.ok) {
-                    if (resposta.status === 204) {
-                        const feed = document.getElementById("feed_container");
-                        feed.innerHTML = "<span>Nenhum resultado encontrado.</span>";
-                        throw new Error("Nenhum resultado encontrado!!");
-                    }
-                    return resposta.json();
-                } else {
-                    throw new Error("Houve um erro na API!");
-                }
-            })
-            .then(resposta => {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                const feed = document.getElementById("feed_container");
-                feed.innerHTML = "";
-
-                resposta.forEach(publicacao => {
-                    const divPublicacao = document.createElement("div");
-                    const spanID = document.createElement("span");
-                    const spanTitulo = document.createElement("span");
-                    const spanNome = document.createElement("span");
-                    const divDescricao = document.createElement("div");
-                    const divButtons = document.createElement("div");
-                    const btnEditar = document.createElement("button");
-                    const btnDeletar = document.createElement("button");
-
-                    spanID.innerHTML = `ID: <b>${publicacao.idAviso}</b>`;
-                    spanTitulo.innerHTML = `Título: <b>${publicacao.titulo}</b>`;
-                    spanNome.innerHTML = `Autor: <b>${publicacao.nome}</b>`;
-                    divDescricao.innerHTML = `Descrição: <b>${publicacao.descricao}</b>`;
-
-                    btnEditar.textContent = "Editar";
-                    btnDeletar.textContent = "Deletar";
-
-                    divPublicacao.className = "publicacao";
-                    spanTitulo.id = "inputNumero" + publicacao.idAviso;
-                    spanNome.className = "publicacao-nome";
-                    spanTitulo.className = "publicacao-titulo";
-                    divDescricao.className = "publicacao-descricao";
-                    divButtons.className = "div-buttons";
-                    btnEditar.className = "publicacao-btn-editar";
-                    btnEditar.id = "btnEditar" + publicacao.idAviso;
-                    btnEditar.onclick = () => editar(publicacao.idAviso);
-
-                    btnDeletar.className = "publicacao-btn-editar";
-                    btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                    btnDeletar.onclick = () => deletar(publicacao.idAviso);
-
-                    divPublicacao.appendChild(spanID);
-                    divPublicacao.appendChild(spanNome);
-                    divPublicacao.appendChild(spanTitulo);
-                    divPublicacao.appendChild(divDescricao);
-                    divPublicacao.appendChild(divButtons);
-                    divButtons.appendChild(btnEditar);
-                    divButtons.appendChild(btnDeletar);
-                    feed.appendChild(divPublicacao);
-                });
-
-                finalizarAguardar?.();
-            })
-            .catch(erro => {
-                console.error(erro);
-                finalizarAguardar?.();
-            });
-    };
-
+    return fetch(`/estatisticas/cadastrar/${idUsuario}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Erro no cadastro!");
+        alert("Partida cadastrada com sucesso!");
+        document.getElementById("form_questionario").reset();
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Erro ao enviar questionário.");
+    }),
+    false;
+}
 </script>
