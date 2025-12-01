@@ -89,3 +89,8 @@ INSERT INTO estatistica VALUES
 (1, 11, 12, 17, 8, 16, 0, 21),
 (1, 12, 20, 28, 10, 12, 1, 37); 
 
+SELECT p.dataPartida, e.abates
+        FROM estatistica e
+        JOIN partida p ON e.fkPartida = p.idPartida
+        WHERE e.fkUsuario = ${idUsuario}
+        ORDER BY p.dataPartida;
